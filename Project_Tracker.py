@@ -16,11 +16,17 @@ class Tasks:
     def setMembers(self, Members):
         self.Members = Members
 
-    #def setMemberTask(self, task, member):
-        #self.Assigned = {task:member}
+ def setMemberTask(self, Assignment, task, *member):
+        self.task = task
+        self.member = member
+        self.Assignment = Assignment
+        self.Assignment.setdefault(self.task, [])
+        self.Assignment[self.task].append(member)
+        return self.Assignment
 
-    #def getMemberTask(self):
-       # return self.Assigned
+
+    def getMemberTask(self):
+        return self.Assignment
 
     def updateTaskList(self, task, choice):
         self.task = task
@@ -33,12 +39,14 @@ class Tasks:
                     print("Tasks Remaining: " + str(len(self.TaskList)))
 
 #testing logic
+AssignedList = {}
 TaskList1 = ["Task A", "Task B", "Task C"]
-MemberList1 = ["aaron", "mike", "dave"]
-myClass = Tasks("Project A", TaskList1, MemberList1)
-myClass.setMembers(MemberList1)
-myClass.setTaskList(TaskList1)
-print(myClass.getTaskList())
-print(myClass.getMembers())
-myClass.updateTaskList("Task A", "complete")
-print(myClass.getTaskList())
+MemberList1 = ["Aaron", "Mike", "Dave"]
+myClass = Tasks("Project A", "Task A", MemberList1)
+members_list = myClass.setMembers(MemberList1)
+list_of_tasks = myClass.setTaskList(TaskList1)
+assigned_tasks = myClass.setMemberTask(AssignedList, "Task A", "Aaron", "Brian")
+assigned_tasks = myClass.setMemberTask(AssignedList, "Task B", "Mike", "Chet")
+assigned_tasks = myClass.setMemberTask(AssignedList, "Task C", "Greg", "Sharon" )
+assignments = myClass.getMemberTask()
+pprint(assignments)
