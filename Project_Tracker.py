@@ -22,8 +22,7 @@ class Tasks:
         self.Assignment = Assignment
         self.Assignment.setdefault(self.task, [])
         self.Assignment[self.task].append(member)
-        return self.Assignment
-
+        
 
     def getMemberTask(self):
         return self.Assignment
